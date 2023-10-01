@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sito Web Protetto</title>
+    <title>Pagina Collaborativa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
+            background: linear-gradient(#e66465, #9198e5);
+            background-size: 100% 100%;
+            background-attachment: fixed;
         }
+
         
         h1 {
             color: #333;
         }
         
-        .login-container {
-            width: 300px;
+        .content {
+            width: 80%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -22,67 +25,35 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         
-        .form-group {
-            margin-bottom: 10px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        
-        input[type="password"] {
-            width: 50%;
-            padding: 10px;
+        #editableContent {
             border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        
-        button {
-            width: 100%;
             padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #555;
+            min-height: 200px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <h1>Benvenuto</h1>
-    <div class="login-container">
-        <form>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="button" onclick="checkPassword()">Accedi</button>
-        </form>
+    <h1>Pagina Collaborativa</h1>
+    <div class="content">
+        <h2>Modifica il testo qui sotto:</h2>
+        <div contenteditable="true" id="editableContent">
+            <p>Questo è un testo modificabile dagli utenti.</p>
+        </div>
     </div>
+    
     <script>
-        function checkPassword() {
-            var password = document.getElementById("password").value;
-            if (password === "Teatro") {
-                window.location.href = "page.html"; // Redirect alla pagina protetta
-            } else {
-                alert("Accesso negato. La password non è corretta.");
-            }
+        // Salva il contenuto modificato in locale
+        var editableContent = document.getElementById("editableContent");
+        editableContent.addEventListener("input", function() {
+            localStorage.setItem("editableContent", editableContent.innerHTML);
+        });
+
+        // Carica il contenuto precedentemente salvato
+        var savedContent = localStorage.getItem("editableContent");
+        if (savedContent) {
+            editableContent.innerHTML = savedContent;
         }
     </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #00aaff, #00ffaa);
-            background-size: 100% 100%;
-            background-attachment: fixed;
-        }
-    </style>
 </body>
 </html>
